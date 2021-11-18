@@ -240,9 +240,7 @@ public class AddTwoNumbers {
 
 ![image-20211117165850994](https://img.lccyj.ltd/img/image-20211117165850994.png)
 
-### 3. Longest Substring Without Repeating Characters
-
-###     无重复字符的最长子串
+## 3. Longest Substring Without Repeating Characters 无重复字符的最长子串    
 
 1.题目描述
 
