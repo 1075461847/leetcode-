@@ -2,7 +2,7 @@
 
 ## 1.TwoSum 两数之和
 
-### 1. 题目描述
+1.题目描述
 
 ```
 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
@@ -26,15 +26,15 @@
 链接：https://leetcode-cn.com/problems/two-sum
 ```
 
-### 2. 初始解法
+2.初始解法
 
-#### 1. 思路
+2.1思路
 
 ```
 穷举每一种情况，将符合的结果返回
 ```
 
-#### 2. 代码
+2.2代码
 
 ```java
 /**
@@ -58,11 +58,11 @@ public class TwoSum {
 }
 ```
 
-#### 3. 结果
+2.3结果
 
 ![image-20211116114056256](https://img.lccyj.ltd/img/image-20211116114056256.png)
 
-#### 4. 分析
+2.4分析
 
 ```
 时间复杂度过高，最坏情况下数组中任意两个数都匹配一次
@@ -70,12 +70,9 @@ public class TwoSum {
 不存在将a作为键，a的下标作为值存入表中，存在则返回a的下标及表中b的值
 ```
 
-#### 5. 改进代码
+3.改进代码
 
 ```java
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 1. 两数之和
  * @author 刘淳
@@ -97,13 +94,13 @@ public class TwoSum {
 }
 ```
 
-#### 6. 改进结果
+4.改进结果
 
 ![image-20211116120351372](https://img.lccyj.ltd/img/image-20211116120351372.png)
 
 ## 2. AddTwoNumbers 两数相加
 
-### 1. 题目描述
+1.题目描述
 
 ```
 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
@@ -111,7 +108,7 @@ public class TwoSum {
 你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
 ```
 
-#### 示例1：
+示例1：
 
 ![](https://img.lccyj.ltd/img/addtwonumber1.jpg)
 
@@ -121,21 +118,21 @@ public class TwoSum {
 解释：342 + 465 = 807.
 ```
 
-#### 示例2：
+示例2：
 
 ```
 输入：l1 = [0], l2 = [0]
 输出：[0]
 ```
 
-#### 示例3：
+示例3：
 
 ```
 输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
 输出：[8,9,9,9,0,0,0,1]
 ```
 
-### 2. 解题思路
+2.解题思路
 
 ```
 创建一个节点作为结果节点，同时创建一个节点作为结果节点的当前节点
@@ -145,9 +142,14 @@ public class TwoSum {
 /10，然后再次判断l1，l2是否为null，不为null则后移节点，结果节点同时后移。
 ```
 
-### 3. 初始代码
+3.初始代码
 
 ```java
+/**
+ * 2.两数相加
+ *
+ * @author 刘淳
+ */
 public class AddTwoNumbers {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode listNode=new ListNode();  //保存结果的链表
@@ -174,7 +176,7 @@ public class AddTwoNumbers {
 }
 ```
 
-####  3.1 存在问题
+3.1 存在问题
 
 ```
 结果链表最后会多出一个值为0的节点
@@ -182,28 +184,33 @@ public class AddTwoNumbers {
 
 ![image-20211117165105242](https://img.lccyj.ltd/img/image-20211117165105242.png)
 
-#### 3.2 问题分析
+3.2 问题分析
 
 ```
 当计算最后一个节点时，仍会创建一个新的节点作为结果节点的下一节点导致
 ```
 
-#### 3.3 解决思路
+3.3 解决思路
 
 ```
 为结果链表创建一个不用于储存数据的头节点，在存储和的时候用和创建一个新节点，并将该节点作为
 当前节点的下一节点，这样，当存储最后一个数值时，由于值储存在下一节点，就不会出现多余节点
 ```
 
-#### 3.4 注意事项
+3.4 注意事项
 
 ```
 由于头节点不用于存储结果数据，返回时应返回头节点的下一节点
 ```
 
-### 4. 改进代码
+4.改进代码
 
 ```java
+/**
+ * 2.两数相加
+ *
+ * @author 刘淳
+ */
 public class AddTwoNumbers {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode listNode=new ListNode(-1);  //保存结果的链表的头节点
@@ -229,7 +236,130 @@ public class AddTwoNumbers {
 }
 ```
 
-### 5. 最终结果
+5.最终结果
 
 ![image-20211117165850994](https://img.lccyj.ltd/img/image-20211117165850994.png)
+
+### 3. Longest Substring Without Repeating Characters
+
+###     无重复字符的最长子串
+
+1.题目描述
+
+```
+给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
+
+示例 1:
+输入: s = "abcabcbb"
+输出: 3 
+解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+
+示例 2:
+输入: s = "bbbbb"
+输出: 1
+解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+
+示例 3:
+输入: s = "pwwkew"
+输出: 3
+解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+     请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+     
+示例 4:
+输入: s = ""
+输出: 0
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/longest-substring-without-repeating-characters
+```
+
+2.初始思路
+
+```
+用两重for循环遍历，将每个字符存入hashset，存入失败时即出现重复，将hashset的size存入用于
+存不重复子串长度的hashset，可得到所有不重复子串的长度并筛出重复值，通过Collections的max
+方法得到最大长度
+```
+
+3.初始代码
+
+```java
+/**
+ * 3.无重复字符的最长字串
+ * @author 刘淳
+ */
+public class LongestSubstringWithoutRepeatingCharacters {
+     public int lengthOfLongestSubstring(String s) {
+         //长度为0时直接返回
+         if (s.length() == 0){
+             return 0;
+         }
+         HashSet<Integer> lengthSet=new HashSet<>();
+         char[] chars=s.toCharArray();
+         for (int i = 0; i <s.length() ; i++) {
+             HashSet<Character> hashSet=new HashSet<>();
+             for (int j = i; j < s.length(); j++) {
+                 //将字符加入hashset
+                 if (!hashSet.add(chars[j])){
+                     //加入失败，即出现重复
+                     lengthSet.add(hashSet.size());  //将当前长度加入set
+                     break;
+                 }
+             }
+             lengthSet.add(hashSet.size());
+         }
+         return Collections.max(lengthSet);  //返回最大长度
+    }
+}
+```
+
+4.初始结果
+
+![image-20211117221420071](https://img.lccyj.ltd/img/image-20211117221420071.png)
+
+5.改进思路
+
+```
+滑动窗口思想：
+	1.我们使用两个指针表示字符串中的某个子串（或窗口）的左右边界，其中左指针代表着上文中「枚举子串的起始位置」，而右指针即为遍历字符串的索引
+	2.遍历字符串将字符加入hashmap中，字符为键，索引为值，添加前判断是否已存在
+		存在：将左指针更新为已存在字符的索引加一，即将重复字符移出窗口，需要注意的是，由于可能该字符已被移出窗口，需要用max函数取当前边界与其的最大值进行更新
+		不存在：将字符和索引加入hashmap
+		注意：字符存在时，由于索引较小的重复字符已经移出窗口，我们也需要将该字符的索引更
+		新
+	每个字符操作完成后将最大子串长度更新为max(当前最大子串长度，当前索引-左指针+1)
+```
+
+6.改进代码
+
+```java
+/**
+ * 3.无重复字符的最长字串
+ * @author 刘淳
+ */
+public class LongestSubstringWithoutRepeatingCharacters {
+     public int lengthOfLongestSubstring(String s) {
+         int maxLength=0; // 最大长度
+         int left=0;  //窗口左边界
+         HashMap<Character,Integer> hashMap=new HashMap<>();
+         //滑动窗口
+         for (int i = 0; i < s.length(); i++) {
+             //字符存在
+             if (hashMap.containsKey(s.charAt(i))){
+                 //窗口收缩至重复元素被移出窗口
+                 left=Math.max(left,hashMap.get(s.charAt(i))+1);
+             }
+             //存在与不存在都要将字符和索引加入map，存在加入是为了更新索引
+             hashMap.put(s.charAt(i),i);
+             //比较当前子串长度是否超过最大子串长度
+             maxLength=Math.max(maxLength,i-left+1);
+         }
+         return maxLength;
+    }
+}
+```
+
+7.最终结果
+
+![image-20211118121727755](https://img.lccyj.ltd/img/image-20211118121727755.png)
 
