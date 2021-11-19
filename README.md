@@ -446,43 +446,44 @@ public class MedianOfTwoSortedArrays {
  */
 public class MedianOfTwoSortedArrays {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int length1=nums1.length;  // 数组1的长度
-        int length2=nums2.length;  //数组2的长度
-        int length=length1+length2;  //总长度
-        int nums1Index=0;  //num1索引
-        int nums2Index=0;  //num2索引
-        int[] nums=new int[length1+length2];  //用于合并的数组
+        int length1 = nums1.length;  // 数组1的长度
+        int length2 = nums2.length;  //数组2的长度
+        int length = length1 + length2;  //总长度
+        int nums1Index = 0;  //num1索引
+        int nums2Index = 0;  //num2索引
+        int[] nums = new int[length1 + length2];  //用于合并的数组
         //双指针合并有序数组
         for (int i = 0; i < nums.length; i++) {
-            if (nums1Index<length1&&nums2Index<length2) {
+            if (nums1Index < length1 && nums2Index < length2) {
                 //两数组都未到边界
-                if (nums1[nums1Index]<nums2[nums2Index]){
+                if (nums1[nums1Index] < nums2[nums2Index]) {
                     //nums1当前数值小
-                    nums[i]=nums1[nums1Index]; //nums1当前数值加入nums
+                    nums[i] = nums1[nums1Index]; //nums1当前数值加入nums
                     nums1Index++;  //nums1指针右移
-                }else if (nums1[nums1Index]>=nums2[nums2Index]){
+                } else if (nums1[nums1Index] >= nums2[nums2Index]) {
                     //num2当前数值小或两数相等
-                    nums[i]=nums2[nums2Index]; //nums2当前数值加入nums
+                    nums[i] = nums2[nums2Index]; //nums2当前数值加入nums
                     nums2Index++;  //nums2指针右移
                 }
-            }else if (nums1Index==length1){
+            } else if (nums1Index == length1) {
                 //nums1到达边界
-                nums[i]=nums2[nums2Index]; //nums2当前数值加入nums
+                nums[i] = nums2[nums2Index]; //nums2当前数值加入nums
                 nums2Index++;  //nums2指针右移
-            }else if (nums2Index==length2){
+            } else if (nums2Index == length2) {
                 //nums2到达边界
-                nums[i]=nums1[nums1Index]; //nums1当前数值加入nums
+                nums[i] = nums1[nums1Index]; //nums1当前数值加入nums
                 nums1Index++;  //nums1指针右移
             }
         }
-        if (length%2==0){
+        if (length % 2 == 0) {
             //长度为偶数
-            return (nums[length/2]+nums[(length/2)-1])/2.0;
-        }else {
+            return (nums[length / 2] + nums[(length / 2) - 1]) / 2.0;
+        } else {
             //长度为奇数
-            return nums[length/2];
+            return nums[length / 2];
         }
     }
+}
 ```
 
 8.改进结果
@@ -495,3 +496,84 @@ public class MedianOfTwoSortedArrays {
 此处还可用二分法，将时间复杂度降为log(m+n)
 ```
 
+## 5. Longest Palindromic Substring 最长回文子串
+
+1.题目描述
+
+```
+给你一个字符串 s，找到 s 中最长的回文子串。
+
+示例 1：
+输入：s = "babad"
+输出："bab"
+解释："aba" 同样是符合题意的答案。
+
+示例 2：
+输入：s = "cbbd"
+输出："bb"
+
+示例 3：
+输入：s = "a"
+输出："a"
+
+示例 4：
+输入：s = "ac"
+输出："a"
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/longest-palindromic-substring
+```
+
+2.解题思路
+
+```
+循环得到每一个中心点，用双指针表示左右边界，左右相等时向两边扩展子串，即可得到最长回文子串
+```
+
+3.代码实现
+
+```java
+/**
+ * 5.最长回文子串
+ * @author 刘淳
+ */
+public class LongestPalindromicSubstring {
+    public String longestPalindrome(String s) {
+        int start = 0;  // 最长回文子串起始下标
+        int end = 0;  // 最长回文子串结束下标
+        for (int i = 0; i < s.length(); i++) {
+            //遍历每一个中心点，得到最长回文子串长度
+            int len1 = getLength(s, i, i);
+            int len2 = getLength(s, i, i + 1);  //考虑长度为偶数时中心扩展的情况
+            int len = Math.max(len1, len2);  //得到最大子串长度
+            if (len > end - start) {
+                //长度为偶数时，i为左边界，故此处计算时因将长度减1，因为整数除法向下取整，故对奇数情况不影响，不用分情况考虑
+                start = i - (len - 1) / 2;
+                end = i + len / 2;
+            }
+        }
+        return s.substring(start, end + 1);
+    }
+
+    /**
+     * 得到当前中心点最长回文子串的长度
+     *
+     * @param s     字符串
+     * @param left  左指针
+     * @param right 右指针
+     * @return 最长回文子串长度
+     */
+    public int getLength(String s, int left, int right) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            //左右相等时扩展子串
+            left--;
+            right++;
+        }
+        return right - left - 1;  //此处要注意扩展子串时会多扩展一次，此处长度应减2，而下标相减应加1才为长度，故全式为 right-left+1-2
+    }
+}
+```
+
+4.结果
+
+![image-20211119141847233](https://img.lccyj.ltd/img/image-20211119141847233.png)
