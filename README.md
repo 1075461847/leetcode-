@@ -361,3 +361,137 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
 ![image-20211118121727755](https://img.lccyj.ltd/img/image-20211118121727755.png)
 
+## 4. Median of Two Sorted Arrays 寻找两个正序数组的中位数
+
+1.题目描述
+
+```
+给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。
+
+算法的时间复杂度应该为 O(log (m+n)) 。
+
+示例 1：
+输入：nums1 = [1,3], nums2 = [2]
+输出：2.00000
+解释：合并数组 = [1,2,3] ，中位数 2
+
+示例 2：
+输入：nums1 = [1,2], nums2 = [3,4]
+输出：2.50000
+解释：合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5
+
+示例 3：
+输入：nums1 = [0,0], nums2 = [0,0]
+输出：0.00000
+
+示例 4：
+输入：nums1 = [], nums2 = [1]
+输出：1.00000
+
+示例 5：
+输入：nums1 = [2], nums2 = []
+输出：2.00000
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/median-of-two-sorted-arrays
+```
+
+2.初始思路
+
+```
+将两数组合并到list后排序，将合并后的数组长度加1后取半，然后向上向下取整得到两索引，用这两个索引获得数组元素取半得到中位数(不需要考虑奇偶)
+```
+
+3.代码实现
+
+```java
+/**
+ * 4.寻找两个正序数组的中位数
+ * @author 刘淳
+ */
+public class MedianOfTwoSortedArrays {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        List<Integer> list=new ArrayList<>();
+        for (int num:nums1){
+            list.add(num);
+        }
+        for (int num:nums2){
+            list.add(num);
+        }
+        Collections.sort(list);
+        double medianIndex = (list.size() +1)/ 2.0;
+        return (list.get((int) Math.ceil(medianIndex)-1)+ list.get((int) Math.floor(medianIndex)-1))/2.0;
+    }
+}
+```
+
+5.初始结果
+
+![image-20211118192050161](https://img.lccyj.ltd/img/image-20211118192050161.png)
+
+6.改进思路
+
+```
+这种写法没有考虑两数组为有序数组，在合并数组时可用两个指针分别遍历两数组，比较大小并加入结
+果数组，然后将对应指针右移，最后根据数组长度的奇偶从合并后数组中取得中位数。
+合并时要注意判断指针是否到达边界，防止数组越界
+```
+
+7.改进代码
+
+```java
+/**
+ * 4.寻找两个正序数组的中位数
+ * @author 刘淳
+ */
+public class MedianOfTwoSortedArrays {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int length1=nums1.length;  // 数组1的长度
+        int length2=nums2.length;  //数组2的长度
+        int length=length1+length2;  //总长度
+        int nums1Index=0;  //num1索引
+        int nums2Index=0;  //num2索引
+        int[] nums=new int[length1+length2];  //用于合并的数组
+        //双指针合并有序数组
+        for (int i = 0; i < nums.length; i++) {
+            if (nums1Index<length1&&nums2Index<length2) {
+                //两数组都未到边界
+                if (nums1[nums1Index]<nums2[nums2Index]){
+                    //nums1当前数值小
+                    nums[i]=nums1[nums1Index]; //nums1当前数值加入nums
+                    nums1Index++;  //nums1指针右移
+                }else if (nums1[nums1Index]>=nums2[nums2Index]){
+                    //num2当前数值小或两数相等
+                    nums[i]=nums2[nums2Index]; //nums2当前数值加入nums
+                    nums2Index++;  //nums2指针右移
+                }
+            }else if (nums1Index==length1){
+                //nums1到达边界
+                nums[i]=nums2[nums2Index]; //nums2当前数值加入nums
+                nums2Index++;  //nums2指针右移
+            }else if (nums2Index==length2){
+                //nums2到达边界
+                nums[i]=nums1[nums1Index]; //nums1当前数值加入nums
+                nums1Index++;  //nums1指针右移
+            }
+        }
+        if (length%2==0){
+            //长度为偶数
+            return (nums[length/2]+nums[(length/2)-1])/2.0;
+        }else {
+            //长度为奇数
+            return nums[length/2];
+        }
+    }
+```
+
+8.改进结果
+
+![image-20211118210511375](https://img.lccyj.ltd/img/image-20211118210511375.png)
+
+9.注意
+
+```
+此处还可用二分法，将时间复杂度降为log(m+n)
+```
+
