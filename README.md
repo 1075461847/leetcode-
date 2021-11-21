@@ -2,7 +2,7 @@
 
 ## 1.TwoSum 两数之和
 
-1.题目描述
+**1.题目描述**
 
 ```
 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
@@ -26,15 +26,15 @@
 链接：https://leetcode-cn.com/problems/two-sum
 ```
 
-2.初始解法
+**2.初始解法**
 
-2.1思路
+**2.1思路**
 
 ```
 穷举每一种情况，将符合的结果返回
 ```
 
-2.2代码
+**2.2代码**
 
 ```java
 /**
@@ -58,11 +58,11 @@ public class TwoSum {
 }
 ```
 
-2.3结果
+**2.3结果**
 
 ![image-20211116114056256](https://img.lccyj.ltd/img/image-20211116114056256.png)
 
-2.4分析
+**2.4分析**
 
 ```
 时间复杂度过高，最坏情况下数组中任意两个数都匹配一次
@@ -70,7 +70,7 @@ public class TwoSum {
 不存在将a作为键，a的下标作为值存入表中，存在则返回a的下标及表中b的值
 ```
 
-3.改进代码
+**3.改进代码**
 
 ```java
 /**
@@ -94,13 +94,13 @@ public class TwoSum {
 }
 ```
 
-4.改进结果
+**4.改进结果**
 
 ![image-20211116120351372](https://img.lccyj.ltd/img/image-20211116120351372.png)
 
-## 2. AddTwoNumbers 两数相加
+## **2. AddTwoNumbers 两数相加**
 
-1.题目描述
+**1.题目描述**
 
 ```
 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
@@ -108,7 +108,7 @@ public class TwoSum {
 你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
 ```
 
-示例1：
+**示例1：**
 
 ![](https://img.lccyj.ltd/img/addtwonumber1.jpg)
 
@@ -118,21 +118,21 @@ public class TwoSum {
 解释：342 + 465 = 807.
 ```
 
-示例2：
+**示例2：**
 
 ```
 输入：l1 = [0], l2 = [0]
 输出：[0]
 ```
 
-示例3：
+**示例3：**
 
 ```
 输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
 输出：[8,9,9,9,0,0,0,1]
 ```
 
-2.解题思路
+**2.解题思路**
 
 ```
 创建一个节点作为结果节点，同时创建一个节点作为结果节点的当前节点
@@ -142,7 +142,7 @@ public class TwoSum {
 /10，然后再次判断l1，l2是否为null，不为null则后移节点，结果节点同时后移。
 ```
 
-3.初始代码
+**3.初始代码**
 
 ```java
 /**
@@ -176,7 +176,7 @@ public class AddTwoNumbers {
 }
 ```
 
-3.1 存在问题
+**3.1 存在问题**
 
 ```
 结果链表最后会多出一个值为0的节点
@@ -184,26 +184,26 @@ public class AddTwoNumbers {
 
 ![image-20211117165105242](https://img.lccyj.ltd/img/image-20211117165105242.png)
 
-3.2 问题分析
+**3.2 问题分析**
 
 ```
 当计算最后一个节点时，仍会创建一个新的节点作为结果节点的下一节点导致
 ```
 
-3.3 解决思路
+**3.3 解决思路**
 
 ```
 为结果链表创建一个不用于储存数据的头节点，在存储和的时候用和创建一个新节点，并将该节点作为
 当前节点的下一节点，这样，当存储最后一个数值时，由于值储存在下一节点，就不会出现多余节点
 ```
 
-3.4 注意事项
+**3.4 注意事项**
 
 ```
 由于头节点不用于存储结果数据，返回时应返回头节点的下一节点
 ```
 
-4.改进代码
+**4.改进代码**
 
 ```java
 /**
@@ -236,13 +236,13 @@ public class AddTwoNumbers {
 }
 ```
 
-5.最终结果
+**5.最终结果**
 
 ![image-20211117165850994](https://img.lccyj.ltd/img/image-20211117165850994.png)
 
 ## 3. Longest Substring Without Repeating Characters 无重复字符的最长子串    
 
-1.题目描述
+**1.题目描述**
 
 ```
 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
@@ -271,7 +271,7 @@ public class AddTwoNumbers {
 链接：https://leetcode-cn.com/problems/longest-substring-without-repeating-characters
 ```
 
-2.初始思路
+**2.初始思路**
 
 ```
 用两重for循环遍历，将每个字符存入hashset，存入失败时即出现重复，将hashset的size存入用于
@@ -279,7 +279,7 @@ public class AddTwoNumbers {
 方法得到最大长度
 ```
 
-3.初始代码
+**3.初始代码**
 
 ```java
 /**
@@ -311,11 +311,11 @@ public class LongestSubstringWithoutRepeatingCharacters {
 }
 ```
 
-4.初始结果
+**4.初始结果**
 
 ![image-20211117221420071](https://img.lccyj.ltd/img/image-20211117221420071.png)
 
-5.改进思路
+**5.改进思路**
 
 ```
 滑动窗口思想：
@@ -328,7 +328,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
 	每个字符操作完成后将最大子串长度更新为max(当前最大子串长度，当前索引-左指针+1)
 ```
 
-6.改进代码
+**6.改进代码**
 
 ```java
 /**
@@ -357,13 +357,13 @@ public class LongestSubstringWithoutRepeatingCharacters {
 }
 ```
 
-7.最终结果
+**7.最终结果**
 
 ![image-20211118121727755](https://img.lccyj.ltd/img/image-20211118121727755.png)
 
 ## 4. Median of Two Sorted Arrays 寻找两个正序数组的中位数
 
-1.题目描述
+**1.题目描述**
 
 ```
 给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。
@@ -396,13 +396,13 @@ public class LongestSubstringWithoutRepeatingCharacters {
 链接：https://leetcode-cn.com/problems/median-of-two-sorted-arrays
 ```
 
-2.初始思路
+**2.初始思路**
 
 ```
 将两数组合并到list后排序，将合并后的数组长度加1后取半，然后向上向下取整得到两索引，用这两个索引获得数组元素取半得到中位数(不需要考虑奇偶)
 ```
 
-3.代码实现
+**3.代码实现**
 
 ```java
 /**
@@ -425,11 +425,11 @@ public class MedianOfTwoSortedArrays {
 }
 ```
 
-5.初始结果
+**5.初始结果**
 
 ![image-20211118192050161](https://img.lccyj.ltd/img/image-20211118192050161.png)
 
-6.改进思路
+**6.改进思路**
 
 ```
 这种写法没有考虑两数组为有序数组，在合并数组时可用两个指针分别遍历两数组，比较大小并加入结
@@ -437,7 +437,7 @@ public class MedianOfTwoSortedArrays {
 合并时要注意判断指针是否到达边界，防止数组越界
 ```
 
-7.改进代码
+**7.改进代码**
 
 ```java
 /**
@@ -486,7 +486,7 @@ public class MedianOfTwoSortedArrays {
 }
 ```
 
-8.改进结果
+**8.改进结果**
 
 ![image-20211118210511375](https://img.lccyj.ltd/img/image-20211118210511375.png)
 
@@ -498,7 +498,7 @@ public class MedianOfTwoSortedArrays {
 
 ## 5. Longest Palindromic Substring 最长回文子串
 
-1.题目描述
+**1.题目描述**
 
 ```
 给你一个字符串 s，找到 s 中最长的回文子串。
@@ -524,13 +524,13 @@ public class MedianOfTwoSortedArrays {
 链接：https://leetcode-cn.com/problems/longest-palindromic-substring
 ```
 
-2.解题思路
+**2.解题思路**
 
 ```
 循环得到每一个中心点，用双指针表示左右边界，左右相等时向两边扩展子串，即可得到最长回文子串
 ```
 
-3.代码实现
+**3.代码实现**
 
 ```java
 /**
@@ -574,6 +574,83 @@ public class LongestPalindromicSubstring {
 }
 ```
 
-4.结果
+**4.结果**
 
 ![image-20211119141847233](https://img.lccyj.ltd/img/image-20211119141847233.png)
+
+## 6. ContainerWithMostWater   盛最多水的容器
+
+**1.题目描述**
+
+> 给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0) 。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+>
+> 说明：你不能倾斜容器。
+>
+> ![img](https://img.lccyj.ltd/img/question_11.jpg)
+>
+> 输入：[1,8,6,2,5,4,8,3,7]
+> 输出：49 
+> 解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
+>
+> 示例 2：
+>
+> 输入：height = [1,1]
+> 输出：1
+>
+> 示例 3：
+>
+> 输入：height = [4,3,2,1,4]
+> 输出：16
+>
+> 示例 4：
+>
+> 输入：height = [1,2,1]
+> 输出：2
+>
+>
+> 提示：
+>
+> n == height.length
+> 2 <= n <= 105
+> 0 <= height[i] <= 104
+>
+> 来源：力扣（LeetCode）
+> 链接：https://leetcode-cn.com/problems/container-with-most-water
+
+**2.初始思路**
+
+> 用两个指针分别置于数组highs左右，当前左右的值分别为a，b，面积为min(a,b)*highs.length，然后与当前最大容量比较，更新为较大的容量，然后将数值较小的指针移动一位，此时面积变为min(a,b)*highs.length-1，当左指针等于右指针时，返回容量
+
+**3.代码实现**
+
+```java
+/**
+ * 6.盛最多水的容器
+ * @author 刘淳
+ */
+public class ContainerWithMostWater {
+    public int maxArea(int[] height) {
+        int length= height.length-1; //容量的宽初始为数组长度减一
+        int left=0;  //左指针
+        int right= height.length-1;  //右指针
+        int container=0;  //容量
+        //当左指针等于右指针时，数组遍历完成
+        while(left< height.length&&right>=0&&left!=right){
+            int temp;
+            //计算当前面积并更新长度与指针
+            if (height[left]>height[right]) {
+                temp = Math.min(height[left], height[right--]) * length--;
+            }else {
+                temp = Math.min(height[left++], height[right]) * length--;
+            }
+            //更新容量
+            container=Math.max(temp,container);
+        }
+        return container;
+    }
+}
+```
+
+**4.结果**
+
+![image-20211121214826548](https://img.lccyj.ltd/img/image-20211121214826548.png)
