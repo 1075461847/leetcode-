@@ -654,3 +654,151 @@ public class ContainerWithMostWater {
 **4.结果**
 
 ![image-20211121214826548](https://img.lccyj.ltd/img/image-20211121214826548.png)
+
+## 7. ThreeSum  三数之和
+
+**1.题目描述**
+
+> 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
+>
+> 注意：答案中不可以包含重复的三元组。
+>
+> 
+>
+> 示例 1：
+>
+> 输入：nums = [-1,0,1,2,-1,-4]
+> 输出：[[-1,-1,2],[-1,0,1]]
+>
+> 示例 2：
+>
+> 输入：nums = []
+> 输出：[]
+>
+> 示例 3：
+>
+> 输入：nums = [0]
+> 输出：[]
+>
+>
+> 提示：
+>
+> 0 <= nums.length <= 3000
+> -105 <= nums[i] <= 105
+>
+> 来源：力扣（LeetCode）
+> 链接：https://leetcode-cn.com/problems/3sum
+
+**2.解题思路**
+
+> 我们用三个指针i，j，k，首先将数组排序，然后用i遍历数组，j，k分别指向i后区域的左右边界，计算三数之和，当等于0时，记录值，大于零，尾部左移，小于0，首部右移
+
+**3.代码实现**
+
+```java
+/**
+ * 7.三数之和
+ * @author 刘淳
+ */
+public class ThreeSum {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums); //排序数组
+        List<List<Integer>> list=new ArrayList<>();
+        //数组长度小于3时直接返回空集
+        if (nums.length<3){
+            return list;
+        }
+        //遍历数组
+        for (int i = 0; i < nums.length; i++) {
+            int left=i+1;  //i后区域的左边界
+            int right= nums.length-1;  //i后区域的右边界
+            while (left<right){
+                if (nums[i]+nums[left]+nums[right]==0){
+                    //相加为0，保存结果
+                    List<Integer> temp=new ArrayList<>();
+                    temp.add(nums[i]);
+                    temp.add(nums[left]);
+                    temp.add(nums[right]);
+                    //判断是否已经存在
+                    if (!list.contains(temp)){
+                        list.add(temp);
+                    }
+                    left++;
+                }else if (nums[i]+nums[left]+nums[right]>0){
+                    //相加大于0，右指针左移
+                    right--;
+                }else if (nums[i]+nums[left]+nums[right]<0){
+                    //相加小于0，左指针右移
+                    left++;
+                }
+            }
+        }
+        return list;
+    }
+}
+```
+
+**4.结果**
+
+![image-20211122175648883](https://img.lccyj.ltd/img/image-20211122175648883.png)
+
+**5.改进思路**
+
+> 以下几种情况为非必要判断
+>
+> > 1. 当nums[i]>0时，此时后面以没有与其相加等于0的数
+> > 2. 当nums[i]==nums[i-1]时，为重复判断，可直接跳过
+> > 3. 当三数之和等于0时，左右边界应移动直到与当前左右边界不相等
+
+**6.改进代码**
+
+```java
+/**
+ * 7.三数之和
+ * @author 刘淳
+ */
+public class ThreeSum {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums); //排序数组
+        List<List<Integer>> list=new ArrayList<>();
+        //数组长度小于3时直接返回空集
+        if (nums.length<3){
+            return list;
+        }
+        //遍历数组
+        for (int i = 0; i < nums.length; i++) {
+            int left=i+1;  //i后区域的左边界
+            int right= nums.length-1;  //i后区域的右边界
+            int base=nums[i];
+            if (base>0) return list;  //i所处位置大于0，说明以不存在三数和为0的情况
+            if (i>0&&base==nums[i-1]) continue; //当前位置与上一位置相等时，可跳过
+            while (left<right){
+                if (nums[left]+nums[right]==-base){
+                    //相加为0，保存结果
+                    List<Integer> temp=new ArrayList<>();
+                    temp.add(base);
+                    temp.add(nums[left]);
+                    temp.add(nums[right]);
+                    list.add(temp);
+                    while (left<right&&nums[left+1]==nums[left]) left++;  //右移左指针直到下一个数不相等
+                    while (left<right&&nums[right-1]==nums[right]) right--;  //左移右指针直到下一个数不相等
+                    //移动指针
+                    left++;
+                    right--;
+                }else if (nums[left]+nums[right]>-base){
+                    //相加大于nums[i]，右指针左移
+                    right--;
+                }else if (nums[left]+nums[right]<-base){
+                    //相加小于0，左指针右移
+                    left++;
+                }
+            }
+        }
+        return list;
+    }
+}
+```
+
+**7.改动结果**
+
+![image-20211122182159243](https://img.lccyj.ltd/img/image-20211122182159243.png)
